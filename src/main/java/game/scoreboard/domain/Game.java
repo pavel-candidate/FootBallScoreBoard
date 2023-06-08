@@ -18,11 +18,8 @@ import java.util.Objects;
  */
 public class Game implements ScoreTeamsInformation {
 
-
-
   private final Team homeTeam;
   private final Score homeTeamScore;
-
   private final Team awayTeam;
   private final Score awayTeamScore;
   private GameStatus status;

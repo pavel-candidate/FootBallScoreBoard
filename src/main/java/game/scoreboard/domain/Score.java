@@ -11,8 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Score implements IntIncrementable {
 
-
-  interface ErrMsg {
+  interface ErrMsg { // this just for easy constants
     String SCORE_CANNOT_BE_LESS_ZERO = "Score cannot be < 0";
   }
   @Getter
@@ -37,6 +36,5 @@ public class Score implements IntIncrementable {
   public int increment() {
     return ++this.score;
   }
-
 
 }
