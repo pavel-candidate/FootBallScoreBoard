@@ -6,7 +6,7 @@ The boards support the following operations:
 1. **Start a game**. When a game starts, it should capture (being initial score 0-0)
 ( Home team and Away Team)
 
-2. **Finish a game**. It will remove a match from the scoreboard.
+2. **Finish a game**. It will remove a match from the scoreboard. Game.gameOver
 
 3. **Update score**. There are 2 methods in the Game object: updateHomeTeamScore and updateAwayTeamScore.
 
