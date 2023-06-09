@@ -19,3 +19,6 @@ This example demonstrates JUnit 5 testing:
 - Usual unit testing
 - Testing exceptions
 - Parameterized testing.
+
+It is possible to run all tests from the command line: `mvn clean test`
+
