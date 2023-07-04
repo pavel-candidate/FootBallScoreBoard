@@ -1,6 +1,6 @@
 package game.scoreboard.domain;
 
-import game.scoreboard.exceptions.GameScoreIllegalArgumentException;
+import game.scoreboard.exceptions.MatchScoreIllegalArgumentException;
 import game.scoreboard.interfaces.IntIncrementable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Score implements IntIncrementable {
 
   public void setScore(int score) {
     if (score < 0) {
-      throw new GameScoreIllegalArgumentException(ErrMsg.SCORE_CANNOT_BE_LESS_ZERO);
+      throw new MatchScoreIllegalArgumentException(ErrMsg.SCORE_CANNOT_BE_LESS_ZERO);
     }
     this.score = score;
   }

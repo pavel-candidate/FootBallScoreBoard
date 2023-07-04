@@ -1,6 +1,6 @@
 package game.scoreboard.domain;
 
-import game.scoreboard.exceptions.GameScoreIllegalArgumentException;
+import game.scoreboard.exceptions.MatchScoreIllegalArgumentException;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
@@ -33,7 +33,7 @@ class ScoreTest {
     Score score = new Score();
 
     // when then
-    var exception = assertThrows(GameScoreIllegalArgumentException.class,
+    var exception = assertThrows(MatchScoreIllegalArgumentException.class,
         () -> score.setScore(-2));
     assertEquals(Score.ErrMsg.SCORE_CANNOT_BE_LESS_ZERO, exception.getMessage());
   }

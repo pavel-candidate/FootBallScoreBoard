@@ -1,6 +1,6 @@
 package game.scoreboard.enums;
 
-public enum GameStatus {
+public enum MatchStatus {
   WAITING,
   FINISHED
 

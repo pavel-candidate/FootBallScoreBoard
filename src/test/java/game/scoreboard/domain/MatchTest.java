@@ -10,13 +10,29 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTest {
+class MatchTest {
 
+  @Test
+  void updateMatchScore() {
+    // given
+    var given = Match.builder()
+        .homeTeam(createHomeTeamForTest())
+        .awayTeam(createAwayTeamForTest())
+        .build();
+    // when
+    assertEquals(0, given.getHomeTeamScore().getScore());
+    assertEquals(0, given.getAwayTeamScore().getScore());
+    given.updateScore(2, 5);
+
+    // then
+    assertEquals(2, given.getHomeTeamScore().getScore());
+    assertEquals(5, given.getAwayTeamScore().getScore());
+  }
 
   @Test
   void incrementHomeTeamScore_ok() {
     // given
-    var given = Game.builder()
+    var given = Match.builder()
         .homeTeam(createHomeTeamForTest())
         .awayTeam(createAwayTeamForTest())
         .build();
@@ -39,7 +55,7 @@ class GameTest {
   @Test
   void incrementAwayTeamScore_ok() {
     // given
-    var given = Game.builder()
+    var given = Match.builder()
         .homeTeam(createHomeTeamForTest())
         .awayTeam(createAwayTeamForTest())
         .build();
@@ -59,16 +75,13 @@ class GameTest {
     assertEquals(1, result.getScore());
   }
 
-  /* begin of
-
   /* begin of null parameter checking tests */
 
   @Test
   void exceptionBecauseOfHomeTeamNullParameter() {
     var exception = assertThrows(NullPointerException.class, () ->
-        Game.builder().awayTeam(createAwayTeamForTest()).build());
+        Match.builder().awayTeam(createAwayTeamForTest()).build());
   }
-
 
   private static Stream<Arguments> exceptionBecauseOfNullParameterData() {
     return Stream.of(
@@ -81,7 +94,7 @@ class GameTest {
   @MethodSource("exceptionBecauseOfNullParameterData")
   void exceptionBecauseOfNullParameter(Team homeTeam, Team awayTeam) {
     var exception = assertThrows(NullPointerException.class,
-        () -> Game.builder()
+        () -> Match.builder()
           .homeTeam(homeTeam)
           .awayTeam(awayTeam)
           .build());
@@ -100,11 +113,11 @@ class GameTest {
   @Test
   void getTeamsAndScoreInformation() {
     // given
-    var game = CreateTestEntities.createSpainBrazilGame();
+    var match = CreateTestEntities.createSpainPortugalMatch();
     // when
-    String result = game.getTeamsAndScoreInformation();
+    String result = match.getTeamsAndScoreInformation();
     // then
     assertNotNull(result);
-    assertEquals("Spain 10 - Brazil 2", result);
+    assertEquals("Spain 10 - Portugal 4", result);
   }
 }

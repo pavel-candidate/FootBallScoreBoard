@@ -1,15 +1,17 @@
 package game.scoreboard.data;
 
-import game.scoreboard.domain.Game;
+import game.scoreboard.domain.Match;
 import game.scoreboard.domain.Team;
-import game.scoreboard.enums.GameStatus;
+import game.scoreboard.enums.MatchStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Here we have several methods for creation values for unit testing.
+ */
 public class CreateTestEntities {
   private CreateTestEntities() {}
-
 
   public static Team createHomeTeamForTest() {
     return createTeamForTest("Home team for test");
@@ -23,64 +25,68 @@ public class CreateTestEntities {
     return new Team(name);
   }
 
-  public static Game createGameForTest(String homeTeamName, String awayTeamName) {
-    return Game.builder()
+  public static Match createGameForTest(String homeTeamName, String awayTeamName) {
+    return Match.builder()
         .homeTeam(createTeamForTest(homeTeamName))
         .awayTeam(createTeamForTest(awayTeamName))
         .build();
   }
 
 
-  public static List<Game> createGameScoreItemsList(GameStatus status) {
-    List<Game> toReturn = List.of(createMexicoCanadaGame(),
-        createSpainBrazilGame(),
-        createGermanyFranceGame(),
-        createUruguayItalyGame(),
-        createArgentinaAustraliaGame()
+  public static Match createSpainPortugalMatch() {
+    Match toReturn = createGameForTest("Spain", "Portugal");
+    toReturn.updateScore(10, 4);
+    return toReturn;
+  }
+
+
+  public static List<Match> createGameScoreItemsList(MatchStatus status) {
+    List<Match> toReturn = List.of(createMexicoCanadaMatch(),
+        createSpainBrazilMatch(),
+        createGermanyFranceMatch(),
+        createUruguayItalyMatch(),
+        createArgentinaAustraliaMatch()
     );
-    if (status == GameStatus.FINISHED) {
-      return toReturn.stream().map(s -> {
-            s.gameOver();
-            return s;
-          })
+    if (status == MatchStatus.FINISHED) {
+      // return toReturn.stream().map(s -> {
+      //       s.matchOver();
+      //       return s;
+      //     })
+      //     .collect(Collectors.toList());
+      // this will be shorter :
+      return toReturn.stream().peek(Match::matchOver)
           .collect(Collectors.toList());
     }
     return toReturn;
   }
 
-  private static Game createMexicoCanadaGame() {
-    Game toReturn = createGameForTest("Mexico", "Canada");
-    toReturn.updateAwayTeamScore(5);
+  private static Match createSpainBrazilMatch() {
+    Match toReturn = createGameForTest("Spain", "Brazil");
+    toReturn.updateScore(10, 2);
     return toReturn;
   }
 
-  public static Game createSpainBrazilGame() {
-    Game toReturn = createGameForTest("Spain", "Brazil");
-    toReturn.updateHomeTeamScore(10);
-    toReturn.updateAwayTeamScore(2);
+  private static Match createMexicoCanadaMatch() {
+    Match toReturn = createGameForTest("Mexico", "Canada");
+    toReturn.updateScore(1, 5);
     return toReturn;
   }
 
-  private static Game createGermanyFranceGame() {
-    Game toReturn = createGameForTest("Germany", "France");
-    toReturn.updateHomeTeamScore(2);
-    toReturn.updateAwayTeamScore(2);
+  private static Match createGermanyFranceMatch() {
+    Match toReturn = createGameForTest("Germany", "France");
+    toReturn.updateScore(2, 2);
     return toReturn;
   }
 
-  private static Game createUruguayItalyGame() {
-    Game toReturn = createGameForTest("Uruguay", "Italy");
-    toReturn.updateHomeTeamScore(6);
-    toReturn.updateAwayTeamScore(6);
+  private static Match createUruguayItalyMatch() {
+    Match toReturn = createGameForTest("Uruguay", "Italy");
+    toReturn.updateScore(6, 6);
     return toReturn;
   }
 
-  private static Game createArgentinaAustraliaGame() {
-    Game toReturn = createGameForTest("Argentina", "Australia");
-    toReturn.updateHomeTeamScore(3);
-    toReturn.updateAwayTeamScore(1);
+  private static Match createArgentinaAustraliaMatch() {
+    Match toReturn = createGameForTest("Argentina", "Australia");
+    toReturn.updateScore(3, 1);
     return toReturn;
   }
-
-
 }
